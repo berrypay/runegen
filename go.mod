@@ -1,3 +1,3 @@
-module bitbucket.org/berrypay-global/runegen
+module github.com/berrypay/runegen
 
 go 1.19

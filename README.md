@@ -1,21 +1,30 @@
-# README #
+# runegen #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Random string generator.
 
 ### What is this repository for? ###
 
 * Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Version 1.0.0
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* import the library in go lang code:
+  
+```bash
+$# go get github.com/berrypay/runegen
+```
+
+```go
+import (
+  "fmt"
+  "github.com/berrypay/runegen"
+)
+
+func main() {
+  fmt.Println(runegen.GetRandom(1, 6))
+}
+```
 
 ### Contribution guidelines ###
 
@@ -25,5 +34,4 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Any issues? Contact sallehuddin[AT]]gmail.com
