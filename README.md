@@ -34,4 +34,4 @@ func main() {
 
 ### Who do I talk to? ###
 
-* Any issues? Contact sallehuddin[AT]]gmail.com
+* Any issues? Contact sallehuddin[AT]gmail.com
