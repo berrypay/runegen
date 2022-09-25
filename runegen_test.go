@@ -1,3 +1,8 @@
+/*
+Copyright © 2022 Sallehuddin Abdul Latif sallehuddin@berrypay.com
+
+*/
+
 package runegen
 
 import (

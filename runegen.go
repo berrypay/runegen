@@ -1,3 +1,8 @@
+/*
+Copyright © 2022 Sallehuddin Abdul Latif sallehuddin@berrypay.com
+
+*/
+
 package runegen
 
 import (
@@ -26,6 +31,8 @@ func GetRandom(charSet uint8, n int) string {
 		return generateRandom([]rune(bigCaps+smallCaps), n)
 	case 7:
 		return generateRandom([]rune(bigCaps+smallCaps+numeric), n)
+	case 8:
+		return generateRandom([]rune(symbol), n)
 	case 10:
 		return generateRandom([]rune(smallCaps+symbol), n)
 	case 11:
@@ -41,6 +48,10 @@ func GetRandom(charSet uint8, n int) string {
 	default:
 		return generateRandom([]rune(bigCaps+smallCaps+numeric), n)
 	}
+}
+
+func GetCustomRandom(s string, n int) string {
+	return generateRandom([]rune(s), n)
 }
 
 func generateRandom(r []rune, n int) string {
