@@ -16,7 +16,7 @@ var BigCaps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var Numerics = "0123456789"
 var Symbols = "._#@%&!~|$^*="
 
-func GetRandom(charSet uint8, n int) string {
+func GetRandom(charSet uint8, n uint) string {
 	switch charSet {
 	case 1:
 		return generateRandom([]rune(Numerics), n)
@@ -51,7 +51,7 @@ func GetRandom(charSet uint8, n int) string {
 	}
 }
 
-func GetPolicyRandom(num bool, sl bool, bl bool, sym bool, strict bool, startAlpha bool, n int) string {
+func GetPolicyRandom(num bool, sl bool, bl bool, sym bool, strict bool, startAlpha bool, n uint) string {
 	var curRune []rune
 	if num {
 		curRune = []rune(string(curRune) + Numerics)
@@ -113,11 +113,11 @@ func GetPolicyRandom(num bool, sl bool, bl bool, sym bool, strict bool, startAlp
 	return generated
 }
 
-func GetCustomRandom(s string, n int) string {
+func GetCustomRandom(s string, n uint) string {
 	return generateRandom([]rune(s), n)
 }
 
-func generateRandom(r []rune, n int) string {
+func generateRandom(r []rune, n uint) string {
 	randomizer := rand.New(rand.NewSource(time.Now().UnixNano()))
 	b := make([]rune, n)
 	for i := range b {
