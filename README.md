@@ -34,7 +34,7 @@ $# cd bin
 $# ./runegen -c 7 -l 8 --strict=true -startalpha=true
 
 ```
-Then you can find the binary in 
+Then you can find the binary in the 'bin' folder.
 
 ### License ###
 

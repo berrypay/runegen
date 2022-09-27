@@ -3,6 +3,7 @@ Copyright © 2022 Sallehuddin Abdul Latif sallehuddin@berrypay.com
 
 */
 
+// Package runegen provides libraries for generating random string from specified rune/runes.
 package runegen
 
 import (
@@ -16,6 +17,15 @@ var BigCaps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var Numerics = "0123456789"
 var Symbols = "._#@%&!~|$^*="
 
+// GetRandom returns a random string consists of runes from predefined character set/sets.
+// Rune set to use are represented by binary representation of the set [bbbbb] where:
+//
+//	0b00001 => numbers
+//	0b00010 => small letters
+//	0b00100 => capital letters
+//	0b01000 => symbols ._#@%&!~|$^*=
+//
+// It will use numbers, small letters and capital letters if the rune set specified not matched.
 func GetRandom(charSet uint8, n uint) string {
 	switch charSet {
 	case 1:
@@ -51,6 +61,15 @@ func GetRandom(charSet uint8, n uint) string {
 	}
 }
 
+// GetPolicyRandom returns a random string of length n consists of runes from predefined or custom character set/sets
+// complying with the complexity requirements.
+//
+//	num = true => use numeric set
+//	sl = true => use small letters set
+//	bl = true => use capital letters set
+//	sym = true => use symbols set
+//	strict = true => make sure all rune set selected exist in the resulting string
+//	startAlpha = true => make sure the resulting string start with an alphabet character
 func GetPolicyRandom(num bool, sl bool, bl bool, sym bool, strict bool, startAlpha bool, n uint) string {
 	policyAlpha := startAlpha
 	policyStrict := strict
@@ -173,10 +192,12 @@ func GetPolicyRandom(num bool, sl bool, bl bool, sym bool, strict bool, startAlp
 	return generated
 }
 
+// GetCustomRandom returns a random string of length n consists of runes from the specified string of characters s.
 func GetCustomRandom(s string, n uint) string {
 	return generateRandom([]rune(s), n)
 }
 
+// generateRandom returns a random string of length n consist of runes from the given set.
 func generateRandom(r []rune, n uint) string {
 	randomizer := rand.New(rand.NewSource(time.Now().UnixNano()))
 	b := make([]rune, n)
@@ -186,6 +207,7 @@ func generateRandom(r []rune, n uint) string {
 	return string(b)
 }
 
+// numericExist returns a boolean indicating whether at least single numeric character exist in the string s
 func numericExist(s string) bool {
 	isExist := false
 	testRunes := []rune(Numerics)
@@ -198,6 +220,7 @@ func numericExist(s string) bool {
 	return isExist
 }
 
+// smallLetterExist returns a boolean indicating whether at least single small letter character exist in the string s
 func smallLetterExist(s string) bool {
 	isExist := false
 	testRunes := []rune(SmallCaps)
@@ -210,6 +233,7 @@ func smallLetterExist(s string) bool {
 	return isExist
 }
 
+// capitalLetterExist returns a boolean indicating whether at least single capital letter character exist in the string s
 func capitalLetterExist(s string) bool {
 	isExist := false
 	testRunes := []rune(BigCaps)
@@ -222,6 +246,7 @@ func capitalLetterExist(s string) bool {
 	return isExist
 }
 
+// symbolExist returns a boolean indicating whether at least single symbol character exist in the string s
 func symbolExist(s string) bool {
 	isExist := false
 	testRunes := []rune(Symbols)
@@ -234,6 +259,7 @@ func symbolExist(s string) bool {
 	return isExist
 }
 
+// startedWithAlpha returns a boolean indicating whether the string s starts with an alphabet character
 func startedWithAlpha(s string) bool {
 	return strings.Contains(SmallCaps+BigCaps, s[0:1])
 }
