@@ -5,7 +5,6 @@ Random string generator.
 ### What is this repository for? ###
 
 * This is the main repository for random string generator library and command line.
-* Version 1.1.1
 
 ### How do I get set up? ###
 
