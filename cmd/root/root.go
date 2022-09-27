@@ -16,6 +16,7 @@ var CustomRunes string
 var Length uint
 var Strict bool
 var StartAlpha bool
+var Debug bool
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -26,7 +27,7 @@ var rootCmd = &cobra.Command{
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
 	Args:    cobra.MatchAll(cobra.NoArgs, cobra.OnlyValidArgs),
-	Version: "1.1.0a",
+	Version: "1.1.1",
 	Run: func(cmd *cobra.Command, args []string) {
 		switch CharacterSetNumber {
 		case 1:

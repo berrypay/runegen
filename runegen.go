@@ -52,6 +52,9 @@ func GetRandom(charSet uint8, n uint) string {
 }
 
 func GetPolicyRandom(num bool, sl bool, bl bool, sym bool, strict bool, startAlpha bool, n uint) string {
+	policyAlpha := startAlpha
+	policyStrict := strict
+
 	var curRune []rune
 	if num {
 		curRune = []rune(string(curRune) + Numerics)
@@ -74,14 +77,21 @@ func GetPolicyRandom(num bool, sl bool, bl bool, sym bool, strict bool, startAlp
 		curRune = []rune(Numerics + SmallCaps + BigCaps + Symbols)
 	}
 
-	alphaFirst := false
+	var alphaFirst bool
+
+	if !sl && !bl {
+		policyAlpha = false
+	}
+
 	var generated string
 
-	if !strict {
-		if startAlpha {
+	// No strict checking requested
+	if !policyStrict {
+		if policyAlpha {
 			for !alphaFirst {
 				generated = generateRandom(curRune, n)
 				alphaFirst = startedWithAlpha(generated)
+				//fmt.Printf("Generated: %v and start with alpha: %v\n", generated, alphaFirst)
 			}
 			return generated
 		}
@@ -89,24 +99,74 @@ func GetPolicyRandom(num bool, sl bool, bl bool, sym bool, strict bool, startAlp
 		return generateRandom(curRune, n)
 	}
 
+	// We will reach this part when strict checking was requested
 	hasNum, hasSL, hasBL, hasSym := false, false, false, false
 
-	if startAlpha {
+	if policyAlpha {
 		for !hasNum || !hasSL || !hasBL || !hasSym || !alphaFirst {
 			generated = generateRandom(curRune, n)
+
 			hasNum = numericExist(generated)
+			//overwrite if numeric is not in the runes selection
+			if !num {
+				hasNum = true
+			}
+
 			hasSL = smallLetterExist(generated)
+			//overwrite if small letters is not in the runes selection
+			if !sl {
+				hasSL = true
+			}
+
 			hasBL = capitalLetterExist(generated)
+			//overwrite if small letters is not in the runes selection
+			if !bl {
+				hasBL = true
+			}
+
 			hasSym = symbolExist(generated)
+			//overwrite if small letters is not in the runes selection
+			if !sym {
+				hasSym = true
+			}
+
 			alphaFirst = startedWithAlpha(generated)
+			//overwrite if small letters or capital letters are not in the runes selection
+			if !sl && !bl {
+				alphaFirst = true
+			}
+
+			//fmt.Printf("Generated: %v and policy result: %v|%v|%v|%v|%v\n", generated, hasNum, hasSL, hasBL, hasSym, alphaFirst)
 		}
 	} else {
 		for !hasNum || !hasSL || !hasBL || !hasSym {
 			generated = generateRandom(curRune, n)
+
 			hasNum = numericExist(generated)
+			//overwrite if numeric is not in the runes selection
+			if !num {
+				hasNum = true
+			}
+
 			hasSL = smallLetterExist(generated)
+			//overwrite if small letters is not in the runes selection
+			if !sl {
+				hasSL = true
+			}
+
 			hasBL = capitalLetterExist(generated)
+			//overwrite if small letters is not in the runes selection
+			if !bl {
+				hasBL = true
+			}
+
 			hasSym = symbolExist(generated)
+			//overwrite if small letters is not in the runes selection
+			if !sym {
+				hasSym = true
+			}
+
+			//fmt.Printf("Generated: %v and policy result: %v|%v|%v|%v\n", generated, hasNum, hasSL, hasBL, hasSym)
 		}
 	}
 
