@@ -27,7 +27,7 @@ var rootCmd = &cobra.Command{
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
 	Args:    cobra.MatchAll(cobra.NoArgs, cobra.OnlyValidArgs),
-	Version: "1.1.1",
+	Version: "1.1.2",
 	Run: func(cmd *cobra.Command, args []string) {
 		switch CharacterSetNumber {
 		case 1:
