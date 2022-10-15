@@ -27,7 +27,7 @@ Copyright © 2022 Sallehuddin Abdul Latif sallehuddin@berrypay.com
 */
 package main
 
-import cmd "github.com/berrypay/runegen/cmd/root"
+import cmd "github.com/berrypay/runegen/cmd/runegen/root"
 
 func main() {
 	cmd.Execute()
