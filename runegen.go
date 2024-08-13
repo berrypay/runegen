@@ -7,6 +7,8 @@ Copyright © 2022 Sallehuddin Abdul Latif sallehuddin@berrypay.com
 package runegen
 
 import (
+	crand "crypto/rand"
+	"math/big"
 	"math/rand"
 	"strings"
 	"time"
@@ -262,4 +264,22 @@ func symbolExist(s string) bool {
 // startedWithAlpha returns a boolean indicating whether the string s starts with an alphabet character
 func startedWithAlpha(s string) bool {
 	return strings.Contains(SmallCaps+BigCaps, s[0:1])
+}
+
+// Nonce Generator
+// Generate random string Nonce of length n using crypto/rand
+func GetNonceStr(n uint) string {
+	runes := []rune(SmallCaps + BigCaps + Numerics)
+
+	b := make([]rune, n)
+	for i := range b {
+		random, err := crand.Int(crand.Reader, big.NewInt(int64(len(runes))))
+		if err != nil {
+			//fallback to use math/rand
+			randomizer := rand.New(rand.NewSource(time.Now().UnixNano()))
+			random = big.NewInt(int64(randomizer.Intn(len(runes))))
+		}
+		b[i] = runes[random.Int64()]
+	}
+	return string(b)
 }

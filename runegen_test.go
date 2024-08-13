@@ -20,3 +20,14 @@ func TestGetRandom(t *testing.T) {
 		}
 	}
 }
+
+func TestGetNonceStr(t *testing.T) {
+	for i := 1; i < 10; i++ {
+		got := GetNonceStr(64)
+		if len(got) < 64 {
+			t.Error("Not enough length generated, test failed.")
+		} else {
+			fmt.Println("Nonce generated: " + got)
+		}
+	}
+}
